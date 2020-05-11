@@ -3,11 +3,13 @@ const path = require('path')
 const express = require('express')
 const consola = require('consola')
 const morgan = require('morgan')
-// const cors = require('cors')
+const cors = require('cors')
+const mongoose = require('mongoose')
 const { Nuxt, Builder } = require('nuxt')
 const app = express()
 const bodyParser = require('body-parser')
 const config = require('../nuxt.config.js')
+const userRoutes = require('./routes/user')
 require('dotenv').config()
 
 // Import and Set Nuxt.js options
@@ -26,6 +28,20 @@ async function start() {
     await builder.build()
   }
 
+  mongoose.set('useCreateIndex', true)
+  mongoose
+    .connect(process.env.MONGO_DB_CONNECTION, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    })
+    .then(() => {
+      console.log('connected to mongodb atlas')
+    })
+    .catch((error) => {
+      console.log('unable to connect to mongodb atlas')
+      console.error(error)
+    })
+
   app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*')
     res.setHeader(
@@ -39,21 +55,16 @@ async function start() {
     next()
   })
 
-  // app.use(cors())
+  app.use(cors())
   // configure body parser
-  app.use(bodyParser.urlencoded({ extended: false }))
+  app.use(bodyParser.urlencoded({ extended: true }))
   app.use(bodyParser.json())
 
   app.use(morgan('dev')) // configire morgan
 
   app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 
-  // Endpoints
-  app.get('/status', (req, res) => {
-    res.send({
-      message: 'working without cors'
-    })
-  })
+  app.use('/api/auth', userRoutes)
 
   // Give nuxt middleware to express
   app.use(nuxt.render)
@@ -62,7 +73,7 @@ async function start() {
   app.listen(port, host)
   consola.ready({
     message: `Server listening on http://${host}:${port}`,
-    badge: true
+    badge: true,
   })
 }
 start()
