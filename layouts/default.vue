@@ -4,7 +4,7 @@
       <b-container>
         <b-navbar-toggle target="nav_collapse" />
         <b-navbar-brand to="/">
-          Nuxt.js
+          Tab Tracker
         </b-navbar-brand>
 
         <b-collapse id="nav_collapse" is-nav>

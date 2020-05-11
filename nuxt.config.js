@@ -56,7 +56,7 @@ module.exports = {
           },
         },
         tokenRequired: true,
-        tokenType: '',
+        tokenType: 'bearer',
         globalToken: true,
         autoFetchUser: true,
       },
