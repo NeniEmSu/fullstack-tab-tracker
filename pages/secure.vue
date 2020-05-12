@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-alert show variant="warning">
+    <b-alert show variant="warning" dismissible>
       This is a secure page!
     </b-alert>
     <b-row>

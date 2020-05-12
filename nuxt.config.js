@@ -17,14 +17,19 @@ module.exports = {
 
   loading: { color: '#fff' },
 
-  css: [],
+  css: ['sweetalert2/dist/sweetalert2.min.css'],
 
   plugins: [],
 
-  buildModules: ['@nuxtjs/eslint-module', '@nuxtjs/stylelint-module'],
+  buildModules: [
+    '@nuxtjs/eslint-module',
+    '@nuxtjs/stylelint-module',
+    '@nuxtjs/moment',
+  ],
 
   modules: [
     'bootstrap-vue/nuxt',
+    'vue-sweetalert2/nuxt',
 
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
@@ -56,7 +61,7 @@ module.exports = {
           },
         },
         tokenRequired: true,
-        tokenType: 'bearer',
+        tokenType: '',
         globalToken: true,
         autoFetchUser: true,
       },

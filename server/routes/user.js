@@ -3,13 +3,21 @@ const router = express.Router()
 
 const userController = require('../controllers/userController')
 
+const auth = require('../middleware/auth')
+
+const authValidation = require('../middleware/authValidation')
+
 router.get('/user', userController.getSingleUser)
 
-router.get('/users', userController.getUsers)
+router.get('/users', auth, userController.getUsers)
 
-router.post('/signup', userController.signup)
+router.post(
+  '/signup',
+  authValidation.validationMiddleware,
+  userController.signup
+)
 
-router.post('/login', userController.login)
+router.post('/login', authValidation.validationMiddleware, userController.login)
 
 router.post('/logout', userController.logout)
 

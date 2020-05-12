@@ -1,25 +1,29 @@
 <template>
   <div>
-    <h2 class="text-center">
+    <h1 class="text-center">
       Login
-    </h2>
+    </h1>
     <hr />
     <b-alert v-if="error" show variant="danger">
-      {{ error }}
+      <h4 class="alert-heading">
+        Error!
+      </h4>
+      {{ error.response.data.message || error.response.data.error.message }}
     </b-alert>
-    <b-alert v-if="$auth.$state.redirect" show>
+    <b-alert v-if="$auth.$state.redirect" show dismissible>
       You have to login before accessing to
       <strong>{{ $auth.$state.redirect }}</strong>
     </b-alert>
     <b-row align-h="center" class="pt-4">
-      <b-col md="4">
+      <b-col lg="4" md="6">
         <b-card bg-variant="light">
           <busy-overlay />
-          <form @keydown.enter="login">
-            <b-form-group label="email">
+          <form>
+            <b-form-group label="Email">
               <b-input
                 ref="email"
                 v-model="email"
+                autofocus
                 placeholder="Email address"
               />
             </b-form-group>
@@ -37,19 +41,13 @@
                 Login
               </b-btn>
             </div>
+            <div class="has-text-centered" style="margin-top: 20px;">
+              <p>
+                Don't have an account?
+                <nuxt-link to="/register">Register</nuxt-link>
+              </p>
+            </div>
           </form>
-        </b-card>
-      </b-col>
-      <b-col md="1" align-self="center">
-        <div class="text-center">
-          <b-badge pill>
-            OR
-          </b-badge>
-        </div>
-      </b-col>
-      <b-col md="4" class="text-center">
-        <b-card title="Social Login" bg-variant="light">
-          <h2>social Login comming soon!</h2>
         </b-card>
       </b-col>
     </b-row>
@@ -65,6 +63,7 @@
 <script>
 import busyOverlay from '~/components/busy-overlay'
 export default {
+  name: 'Login',
   middleware: ['auth'],
   components: { busyOverlay },
   data() {
@@ -95,8 +94,17 @@ export default {
             password: this.password,
           },
         })
-        .catch((e) => {
-          this.error = e
+        .then((response, append = false) => {
+          this.$bvToast.toast(response.data.message, {
+            title: 'Login in',
+            autoHideDelay: 10000,
+            appendToast: append,
+            variant: 'success',
+            solid: true,
+          })
+        })
+        .catch((error) => {
+          this.error = error
         })
     },
   },

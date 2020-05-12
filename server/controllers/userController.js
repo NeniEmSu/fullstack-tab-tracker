@@ -4,14 +4,11 @@ const jwt = require('jsonwebtoken')
 const User = require('../models/usersModel')
 
 const signToken = (user) => {
-  const convertedEmailToName = user.email.match(/^([^@]*)@/)[1]
   return jwt.sign(
     {
-      iss: 'NeniEmsu',
+      iss: process.env.BASE_URL,
       userId: user._id,
-      userEmail: user.email,
       picture: 'https://github.com/nuxt.png',
-      name: convertedEmailToName,
     },
     process.env.JWT_SECRET,
     {
@@ -25,6 +22,7 @@ exports.signup = async (req, res, next) => {
     const hashedPassword = bcrypt.hashSync(req.body.password, saltRounds)
 
     const user = new User({
+      userName: req.body.userName,
       email: req.body.email,
       password: hashedPassword,
     })
@@ -32,12 +30,14 @@ exports.signup = async (req, res, next) => {
 
     const token = signToken(newUser)
     res.status(201).json({
+      type: 'success',
       message: 'User added successfully!',
       newUser,
       token,
     })
   } catch (error) {
     res.status(500).json({
+      type: 'error',
       error,
     })
   }
@@ -45,10 +45,21 @@ exports.signup = async (req, res, next) => {
 
 exports.getUsers = async (req, res) => {
   try {
-    const user = await User.find()
-    res.status(200).json(user)
-  } catch (err) {
-    res.status(500).json(err)
+    const users = await User.find()
+
+    // const usersDetails = {
+    //   _id: user._id,
+    //   email: user.email,
+    //   userName: user.userName,
+    //   createdAt: user.createdAt,
+    // }
+
+    res.status(200).json({
+      type: 'success',
+      users,
+    })
+  } catch (error) {
+    res.status(500).json({ type: 'error', error })
   }
 }
 
@@ -59,31 +70,36 @@ exports.login = (req, res, next) => {
     .then((user) => {
       if (!user) {
         return res.status(401).json({
-          error: new Error('User not found!'),
+          type: 'error',
+          error: 'User email not found, correct it or consider signing up',
         })
       }
       bcrypt
         .compare(req.body.password, user.password)
         .then((valid) => {
           if (!valid) {
-            return res.status(401).json({
-              error: new Error('Incorrect password!'),
-            })
+            return res
+              .status(401)
+              .json({ type: 'error', error: 'Incorrect password!' })
           }
           const token = signToken(user)
           res.status(200).json({
+            message: 'You are logged in successfully!',
+            type: 'success',
             userId: user._id,
             token,
           })
         })
         .catch((error) => {
           res.status(500).json({
+            type: 'error',
             error,
           })
         })
     })
     .catch((error) => {
       res.status(500).json({
+        type: 'error',
         error,
       })
     })
@@ -95,31 +111,36 @@ exports.getSingleUser = async (req, res) => {
     if (!token)
       return res
         .status(400)
-        .json({ type: 'error', message: 'Authorization token not found' })
+        .json({ type: 'error', error: 'Authorization token not found' })
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET)
 
     const user = await User.findOne({ _id: decoded.userId })
     if (!user)
-      return res.status(400).json({ type: 'error', message: 'User not found' })
+      return res.status(400).json({ type: 'error', error: 'User not found' })
+
+    const convertedEmailToName = user.email.match(/^([^@]*)@/)[1]
 
     const userDetails = {
-      id: decoded.userId,
-      email: decoded.userEmail,
+      id: user._id,
+      email: user.email,
       picture: decoded.picture,
-      name: decoded.name,
+      name: convertedEmailToName,
+      userName: user.userName,
     }
-    res.status(200).json({ user: userDetails })
-  } catch (err) {
-    res.status(500).json(err)
+    res.status(200).json({ type: 'success', user: userDetails })
+  } catch (error) {
+    res.status(500).json({ type: 'error', error })
   }
 }
 
 exports.logout = (req, res) => {
   try {
-    res.status(200).json('ok')
-  } catch (err) {
-    res.status(500).json(err)
+    res
+      .status(200)
+      .json({ type: 'success', message: 'Loged Out Successfully!' })
+  } catch (error) {
+    res.status(500).json({ type: 'error', error })
   }
 }
 
@@ -127,8 +148,8 @@ exports.deleteUser = async (req, res) => {
   try {
     const id = req.params.userId
     const result = await User.deleteOne({ _id: id })
-    res.status(200).json(result)
-  } catch (err) {
-    res.status(500).json(err)
+    res.status(200).json({ type: 'success', result })
+  } catch (error) {
+    res.status(500).json({ type: 'error', error })
   }
 }

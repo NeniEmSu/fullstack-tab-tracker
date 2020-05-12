@@ -18,6 +18,9 @@
             <b-nav-item to="/secure">
               Secure
             </b-nav-item>
+            <b-nav-item to="/users">
+              Users
+            </b-nav-item>
           </b-navbar-nav>
           <b-navbar-nav class="ml-auto">
             <template v-if="$auth.loggedIn">
@@ -41,6 +44,9 @@
             <template v-else>
               <b-dropdown-item to="/login">
                 Login
+              </b-dropdown-item>
+              <b-dropdown-item to="/register">
+                Register
               </b-dropdown-item>
             </template>
           </b-navbar-nav>

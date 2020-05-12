@@ -1,5 +1,5 @@
 <template>
-  <div v-if="$auth.$state.busy" class="overlay">
+  <div v-if="$auth.busy" class="overlay">
     <img src="~/assets/loading.svg" alt="Loading..." />
   </div>
 </template>
