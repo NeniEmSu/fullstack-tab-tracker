@@ -16,7 +16,7 @@ module.exports = async (req, res, next) => {
   } catch (error) {
     res.status(401).json({
       type: 'error',
-      error: 'Unauthorized access',
+      error: 'Unauthorized access!',
     })
   }
 }

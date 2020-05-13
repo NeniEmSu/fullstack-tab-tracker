@@ -29,11 +29,22 @@
             </b-form-group>
 
             <b-form-group label="Password">
-              <b-input
-                v-model="password"
-                type="password"
-                placeholder="password"
-              />
+              <b-input-group>
+                <b-input-group-prepend is-text class="clickable">
+                  <i
+                    class="fas clickable"
+                    :class="[passwordIcon]"
+                    @click="hidePassword = !hidePassword"
+                  ></i>
+                </b-input-group-prepend>
+                <b-input
+                  v-model="password"
+                  :type="passwordType"
+                  placeholder="password"
+                  required
+                  name="password"
+                />
+              </b-input-group>
             </b-form-group>
 
             <div class="text-center">
@@ -71,9 +82,16 @@ export default {
       email: '',
       password: '',
       error: null,
+      hidePassword: true,
     }
   },
   computed: {
+    passwordType() {
+      return this.hidePassword ? 'password' : 'text'
+    },
+    passwordIcon() {
+      return this.hidePassword ? 'fa-eye' : 'fa-eye-slash'
+    },
     redirect() {
       return (
         this.$route.query.redirect &&
@@ -95,12 +113,11 @@ export default {
           },
         })
         .then((response, append = false) => {
-          this.$bvToast.toast(response.data.message, {
-            title: 'Login in',
-            autoHideDelay: 10000,
-            appendToast: append,
-            variant: 'success',
-            solid: true,
+          this.$store.dispatch('toast/setToast', {
+            title: response.data.message,
+            variant: response.data.type,
+            text: `Thanks for signing in, ${this.$auth.user.userName}`,
+            delay: 5000,
           })
         })
         .catch((error) => {
@@ -110,3 +127,9 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+.clickable {
+  cursor: pointer;
+}
+</style>

@@ -54,6 +54,7 @@ Backend
 - [x] create and use backend auth middleware
 - [x] Req.body validation with @hapi/joi
 - [ ] Learn how to and improve auth security
+- [ ] add roles to users
 - [x] Create users routes, model and controllers
 - [x] Set up express api, cors, proxy settings and basics
 
@@ -79,8 +80,11 @@ Frontend
 - [ ] responsive design improvements
 - [ ] search functionality
 - [ ] frontend login & registration form validation
+- [ ] use bootstrap icons opposed to fontawesome
+- [x] display logged in, signed in and out statuses globally
 - [x] improve error handling and display
 - [ ] create and use frontend admin middleware
+- [x] allow to review password
 - [x] frontend user Registration
 - [x] frontend user authentication (login, logout and fetchUser data)
 - [x] proper navigation

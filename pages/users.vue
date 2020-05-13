@@ -118,14 +118,14 @@ export default {
     deleteUser(id) {
       this.$swal({
         title: 'Are you sure?',
-        text: 'Once deleted, you will not be able to recover this User!',
+        text: "You won't be able to revert this!",
         icon: 'warning',
-        showCloseButton: true,
         showCancelButton: true,
-        // buttons: true,
-        dangerMode: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Yes, delete it!',
       }).then((willDelete) => {
-        if (willDelete) {
+        if (willDelete.value) {
           this.$axios
             .$delete(`/api/auth/delete/${id}`)
             .then((response) => {
@@ -143,7 +143,7 @@ export default {
               )
             })
         } else {
-          this.$swal('Your user request is safe!')
+          this.$swal("That User's data is safe!")
         }
       })
     },

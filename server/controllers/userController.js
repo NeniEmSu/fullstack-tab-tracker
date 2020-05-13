@@ -31,7 +31,7 @@ exports.signup = async (req, res, next) => {
     const token = signToken(newUser)
     res.status(201).json({
       type: 'success',
-      message: 'User added successfully!',
+      message: 'User registration successfull!',
       newUser,
       token,
     })
@@ -46,13 +46,6 @@ exports.signup = async (req, res, next) => {
 exports.getUsers = async (req, res) => {
   try {
     const users = await User.find()
-
-    // const usersDetails = {
-    //   _id: user._id,
-    //   email: user.email,
-    //   userName: user.userName,
-    //   createdAt: user.createdAt,
-    // }
 
     res.status(200).json({
       type: 'success',
@@ -69,7 +62,7 @@ exports.login = (req, res, next) => {
   })
     .then((user) => {
       if (!user) {
-        return res.status(401).json({
+        return res.status(403).json({
           type: 'error',
           error: 'User email not found, correct it or consider signing up',
         })
@@ -79,12 +72,12 @@ exports.login = (req, res, next) => {
         .then((valid) => {
           if (!valid) {
             return res
-              .status(401)
+              .status(403)
               .json({ type: 'error', error: 'Incorrect password!' })
           }
           const token = signToken(user)
           res.status(200).json({
-            message: 'You are logged in successfully!',
+            message: 'Logged in successfully!',
             type: 'success',
             userId: user._id,
             token,
@@ -110,14 +103,14 @@ exports.getSingleUser = async (req, res) => {
     const token = req.headers.authorization
     if (!token)
       return res
-        .status(400)
+        .status(401)
         .json({ type: 'error', error: 'Authorization token not found' })
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET)
 
     const user = await User.findOne({ _id: decoded.userId })
     if (!user)
-      return res.status(400).json({ type: 'error', error: 'User not found' })
+      return res.status(403).json({ type: 'error', error: 'User not found' })
 
     const convertedEmailToName = user.email.match(/^([^@]*)@/)[1]
 

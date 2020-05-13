@@ -6,7 +6,7 @@
     <hr />
     <b-alert v-if="error" show variant="danger">
       <h4 class="alert-heading">
-        <!-- {{ error.response.data.name || error.response.data.error.name }}! -->Error
+        Error
       </h4>
       <!-- eslint-disable-next-line vue/no-v-html -->
       <div v-html="error"></div>
@@ -41,23 +41,41 @@
             </b-form-group>
 
             <b-form-group label="Password">
-              <b-input
-                v-model="password"
-                type="password"
-                placeholder="password"
-                required
-                name="password"
-              />
+              <b-input-group>
+                <b-input-group-prepend is-text class="clickable">
+                  <i
+                    class="fas clickable"
+                    :class="[passwordIcon]"
+                    @click="hidePassword = !hidePassword"
+                  ></i>
+                </b-input-group-prepend>
+                <b-input
+                  v-model="password"
+                  :type="passwordType"
+                  placeholder="password"
+                  required
+                  name="password"
+                />
+              </b-input-group>
             </b-form-group>
 
-            <b-form-group label="Repeat Password">
-              <b-input
-                v-model="repeat_password"
-                type="password"
-                placeholder="repeat the password"
-                required
-                name="repeat_password"
-              />
+            <b-form-group label="Confirm password">
+              <b-input-group>
+                <b-input-group-prepend is-text class="clickable">
+                  <i
+                    class="fas clickable"
+                    :class="[passwordIcon]"
+                    @click="hidePassword = !hidePassword"
+                  ></i>
+                </b-input-group-prepend>
+                <b-input
+                  v-model="repeat_password"
+                  :type="passwordType"
+                  placeholder="Confirm password"
+                  required
+                  name="repeat_password"
+                />
+              </b-input-group>
             </b-form-group>
 
             <div class="text-center">
@@ -90,7 +108,17 @@ export default {
       password: '',
       repeat_password: '',
       error: null,
+      hidePassword: true,
     }
+  },
+
+  computed: {
+    passwordType() {
+      return this.hidePassword ? 'password' : 'text'
+    },
+    passwordIcon() {
+      return this.hidePassword ? 'fa-eye' : 'fa-eye-slash'
+    },
   },
 
   methods: {
@@ -104,12 +132,11 @@ export default {
             repeat_password: this.repeat_password,
           })
           .then((response, append = false) => {
-            this.$bvToast.toast(response.data.message, {
-              title: 'Sign Up',
-              autoHideDelay: 10000,
-              appendToast: append,
-              variant: 'success',
-              solid: true,
+            this.$store.dispatch('toast/setToast', {
+              title: 'Success',
+              variant: response.data.type,
+              text: response.data.message,
+              delay: 5000,
             })
           })
 
@@ -121,24 +148,23 @@ export default {
             },
           })
           .then((response, append = false) => {
-            this.$bvToast.toast(response.data.message, {
-              title: 'Login in',
-              autoHideDelay: 10000,
-              appendToast: append,
-              variant: 'success',
-              solid: true,
+            this.$store.dispatch('toast/setToast', {
+              title: response.data.message,
+              variant: response.data.type,
+              text: `Thanks for signing in, ${this.$auth.user.userName}`,
+              delay: 5000,
             })
           })
       } catch (error) {
         this.error = error.response.data.error
-        this.$bvToast.toast(error.response.data.error, {
-          title: 'Error',
-          autoHideDelay: 10000,
-          variant: 'error',
-          solid: true,
-        })
       }
     },
   },
 }
 </script>
+
+<style lang="scss">
+.clickable {
+  cursor: pointer;
+}
+</style>

@@ -13,6 +13,11 @@ module.exports = {
       },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    script: [
+      {
+        src: 'https://kit.fontawesome.com/41fc25a21c.js',
+      },
+    ],
   },
 
   loading: { color: '#fff' },
