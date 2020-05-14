@@ -45,7 +45,9 @@ exports.signup = async (req, res, next) => {
 
 exports.getUsers = async (req, res) => {
   try {
-    const users = await User.find()
+    const users = await User.find({}, 'userName email createdAt').sort({
+      createdAt: -1,
+    })
 
     res.status(200).json({
       type: 'success',

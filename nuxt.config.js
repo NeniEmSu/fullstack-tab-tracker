@@ -1,15 +1,20 @@
+const axios = require('axios')
+require('dotenv').config()
+
 module.exports = {
   mode: 'universal',
 
   head: {
-    title: process.env.npm_package_name || '',
+    title: 'Tab Tracker' || process.env.npm_package_name,
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       {
         hid: 'description',
         name: 'description',
-        content: process.env.npm_package_description || '',
+        content:
+          'Music tabs tracker for fullstack apps' ||
+          process.env.npm_package_description,
       },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
@@ -70,6 +75,21 @@ module.exports = {
         globalToken: true,
         autoFetchUser: true,
       },
+    },
+  },
+
+  generate: {
+    routes() {
+      const songRoute = axios
+        .get(`${process.env.BASE_URL}/api/song`)
+        .then((res) => {
+          return res.data.songs.map((song) => {
+            return `/song/${song.title_slug}/${song._id}`
+          })
+        })
+      return Promise.all([songRoute]).then((values) => {
+        return values.join().split(',')
+      })
     },
   },
 

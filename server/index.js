@@ -10,6 +10,7 @@ const app = express()
 const bodyParser = require('body-parser')
 const config = require('../nuxt.config.js')
 const userRoutes = require('./routes/user')
+const songRoutes = require('./routes/song')
 require('dotenv').config()
 
 // Import and Set Nuxt.js options
@@ -65,6 +66,7 @@ async function start() {
   app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 
   app.use('/api/auth', userRoutes)
+  app.use('/api/song', songRoutes)
 
   // Give nuxt middleware to express
   app.use(nuxt.render)
