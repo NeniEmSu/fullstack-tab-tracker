@@ -31,11 +31,12 @@
             <b-form-group label="Password">
               <b-input-group>
                 <b-input-group-prepend is-text class="clickable">
-                  <i
-                    class="fas clickable"
-                    :class="[passwordIcon]"
+                  <b-icon
+                    :icon="passwordIcon"
+                    font-scale="1.5"
                     @click="hidePassword = !hidePassword"
-                  ></i>
+                  >
+                  </b-icon>
                 </b-input-group-prepend>
                 <b-input
                   v-model="password"
@@ -90,7 +91,7 @@ export default {
       return this.hidePassword ? 'password' : 'text'
     },
     passwordIcon() {
-      return this.hidePassword ? 'fa-eye' : 'fa-eye-slash'
+      return this.hidePassword ? 'eye-fill' : 'eye-slash-fill'
     },
     redirect() {
       return (

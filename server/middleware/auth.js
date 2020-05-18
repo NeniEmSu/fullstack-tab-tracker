@@ -11,12 +11,16 @@ module.exports = async (req, res, next) => {
         .status(400)
         .json({ type: 'error', error: 'Invalid user credentials' })
     } else {
+      res.locals._userId = decodedToken.userId
+      res.locals._userName = user.userName
       next()
     }
   } catch (error) {
     res.status(401).json({
       type: 'error',
-      error: 'Unauthorized access!',
+      error: 'Unauthorized request!',
+      message:
+        'All requests to route are protected, Sign up or In to gain access!',
     })
   }
 }

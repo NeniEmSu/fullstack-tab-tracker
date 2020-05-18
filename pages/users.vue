@@ -5,7 +5,9 @@
         <div class="col-md-12">
           <div class="card bg-light p-1 showdow-sm">
             <div class="card-title">
-              Users
+              <h1>
+                Users
+              </h1>
             </div>
             <div class="card-body">
               <table class="table">

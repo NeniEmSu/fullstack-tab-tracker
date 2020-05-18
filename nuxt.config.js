@@ -18,18 +18,13 @@ module.exports = {
       },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
-    script: [
-      {
-        src: 'https://kit.fontawesome.com/41fc25a21c.js',
-      },
-    ],
   },
 
   loading: { color: '#fff' },
 
   css: ['sweetalert2/dist/sweetalert2.min.css'],
 
-  plugins: [],
+  plugins: ['~/plugins/bootstrap-vue-icon'],
 
   buildModules: [
     '@nuxtjs/eslint-module',

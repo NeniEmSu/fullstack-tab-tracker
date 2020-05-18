@@ -11,7 +11,7 @@
           <b-nav-item to="/" exact>
             Home
           </b-nav-item>
-          <b-nav-item to="/song">
+          <b-nav-item to="/songs">
             Songs
           </b-nav-item>
           <b-nav-item to="/secure">
@@ -25,7 +25,7 @@
           <template v-if="$auth.loggedIn">
             <b-nav-item-dropdown
               class="text-capitalize"
-              :text="$auth.user.name"
+              :text="$auth.user.userName"
               right
             >
               <b-dropdown-item @click="$auth.logout()">

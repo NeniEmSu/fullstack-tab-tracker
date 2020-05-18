@@ -38,6 +38,14 @@ const songSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    _userId: {
+      type: String,
+      required: true,
+    },
+    _userName: {
+      type: String,
+      required: true,
+    },
   },
   {
     timestamps: true,

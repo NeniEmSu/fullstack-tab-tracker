@@ -18,6 +18,7 @@
 8. SCSS
 9. Jest
 10. Eslint
+11. Bootstrap Icon
 
 ### The stack on the BackEnd is based on
 
@@ -50,6 +51,8 @@ Backend
 - [ ] Create histories routes, model and controllers
 - [ ] Create tabs routes, model and controllers
 - [ ] create and use backend admin middleware
+- [ ] Set up mongodb mongoose one to many  relationship between songs and users
+- [x] search functionality
 - [x] protect routes with auth middleware
 - [x] create and use backend auth middleware
 - [x] Req.body validation with @hapi/joi
@@ -78,9 +81,9 @@ Frontend
 - [ ] animated transition
 - [ ] theme switch (dark and light)
 - [ ] responsive design improvements
-- [ ] search functionality
+- [x] search functionality
 - [ ] frontend login & registration form validation
-- [ ] use bootstrap icons opposed to fontawesome
+- [x] use bootstrap icons opposed to fontawesome
 - [x] display logged in, signed in and out statuses globally
 - [x] improve error handling and display
 - [ ] create and use frontend admin middleware
