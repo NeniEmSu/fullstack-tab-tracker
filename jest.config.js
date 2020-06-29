@@ -9,9 +9,12 @@ module.exports = {
     '^.+\\.js$': 'babel-jest',
     '.*\\.(vue)$': 'vue-jest',
   },
-  collectCoverage: true,
+  collectCoverage: false,
   collectCoverageFrom: [
-    '<rootDir>/components/**/*.vue',
-    '<rootDir>/pages/**/*.vue',
+    // '<rootDir>/components/**/*.vue',
+    // '<rootDir>/pages/**/*.vue',
   ],
+  testEnvironment: 'node',
+  coveragePathIgnorePatterns: ['/node_modules/'],
+  preset: '@shelf/jest-mongodb',
 }
