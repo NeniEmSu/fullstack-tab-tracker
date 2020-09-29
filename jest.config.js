@@ -14,7 +14,5 @@ module.exports = {
     // '<rootDir>/components/**/*.vue',
     // '<rootDir>/pages/**/*.vue',
   ],
-  testEnvironment: 'node',
   coveragePathIgnorePatterns: ['/node_modules/'],
-  preset: '@shelf/jest-mongodb',
 }

@@ -9,9 +9,7 @@
       <div class="row">
         <div class="col-md-12">
           <b-alert v-if="error" show variant="danger">
-            <h4 class="alert-heading">
-              Error
-            </h4>
+            <h4 class="alert-heading">Error</h4>
             <!-- eslint-disable-next-line vue/no-v-html -->
             <div v-html="error"></div>
           </b-alert>

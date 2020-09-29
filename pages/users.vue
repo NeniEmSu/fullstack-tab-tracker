@@ -5,9 +5,7 @@
         <div class="col-md-12">
           <div class="card bg-light p-1 showdow-sm">
             <div class="card-title">
-              <h1>
-                Users
-              </h1>
+              <h1>Users</h1>
             </div>
             <div class="card-body">
               <table class="table">
@@ -25,7 +23,7 @@
                 <div
                   v-if="usersLoading"
                   class="spinner-border"
-                  style="width: 3rem; height: 3rem;"
+                  style="width: 3rem; height: 3rem"
                   role="status"
                 ></div>
                 <tbody v-else>
@@ -152,5 +150,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss"></style>

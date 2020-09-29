@@ -2,24 +2,14 @@
   <b-navbar toggleable="md" variant="light">
     <b-container>
       <b-navbar-toggle target="nav_collapse" />
-      <b-navbar-brand to="/">
-        Tab Tracker
-      </b-navbar-brand>
+      <b-navbar-brand to="/"> Tab Tracker </b-navbar-brand>
 
       <b-collapse id="nav_collapse" is-nav>
         <b-navbar-nav>
-          <b-nav-item to="/" exact>
-            Home
-          </b-nav-item>
-          <b-nav-item to="/songs">
-            Songs
-          </b-nav-item>
-          <b-nav-item to="/secure">
-            Secure
-          </b-nav-item>
-          <b-nav-item to="/users">
-            Users
-          </b-nav-item>
+          <b-nav-item to="/" exact> Home </b-nav-item>
+          <b-nav-item to="/songs"> Songs </b-nav-item>
+          <b-nav-item to="/secure"> Secure </b-nav-item>
+          <b-nav-item to="/users"> Users </b-nav-item>
         </b-navbar-nav>
         <b-navbar-nav class="ml-auto">
           <template v-if="$auth.loggedIn">
@@ -41,12 +31,8 @@
             />
           </template>
           <template v-else>
-            <b-dropdown-item to="/login">
-              Login
-            </b-dropdown-item>
-            <b-dropdown-item to="/register">
-              Register
-            </b-dropdown-item>
+            <b-dropdown-item to="/login"> Login </b-dropdown-item>
+            <b-dropdown-item to="/register"> Register </b-dropdown-item>
           </template>
         </b-navbar-nav>
       </b-collapse>
@@ -68,5 +54,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped></style>

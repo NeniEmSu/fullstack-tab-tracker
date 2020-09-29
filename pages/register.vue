@@ -1,13 +1,9 @@
 <template>
   <div>
-    <h1 class="text-center">
-      Register
-    </h1>
+    <h1 class="text-center">Register</h1>
     <hr />
     <b-alert v-if="error" show variant="danger">
-      <h4 class="alert-heading">
-        Error
-      </h4>
+      <h4 class="alert-heading">Error</h4>
       <!-- eslint-disable-next-line vue/no-v-html -->
       <div v-html="error"></div>
     </b-alert>
@@ -84,11 +80,9 @@
             </b-form-group>
 
             <div class="text-center">
-              <b-btn variant="primary" block @click="signUp">
-                Sign Up
-              </b-btn>
+              <b-btn variant="primary" block @click="signUp"> Sign Up </b-btn>
             </div>
-            <div class="text-center" style="margin-top: 20px;">
+            <div class="text-center" style="margin-top: 20px">
               Already got an account? <nuxt-link to="/login">Login</nuxt-link>
             </div>
           </form>

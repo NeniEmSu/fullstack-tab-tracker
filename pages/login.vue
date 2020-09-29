@@ -1,13 +1,9 @@
 <template>
   <div>
-    <h1 class="text-center">
-      Login
-    </h1>
+    <h1 class="text-center">Login</h1>
     <hr />
     <b-alert v-if="error" show variant="danger">
-      <h4 class="alert-heading">
-        Error!
-      </h4>
+      <h4 class="alert-heading">Error!</h4>
       {{ error.response.data.message || error.response.data.error.message }}
     </b-alert>
     <b-alert v-if="$auth.$state.redirect" show dismissible>
@@ -49,11 +45,9 @@
             </b-form-group>
 
             <div class="text-center">
-              <b-btn variant="primary" block @click="login">
-                Login
-              </b-btn>
+              <b-btn variant="primary" block @click="login"> Login </b-btn>
             </div>
-            <div class="has-text-centered" style="margin-top: 20px;">
+            <div class="has-text-centered" style="margin-top: 20px">
               <p>
                 Don't have an account?
                 <nuxt-link to="/register">Register</nuxt-link>

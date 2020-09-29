@@ -2,12 +2,8 @@
   <div class="container">
     <div>
       <logo />
-      <h1 class="title">
-        fullstack-tab-tracker
-      </h1>
-      <h2 class="subtitle">
-        My first-class Nuxt.js project
-      </h2>
+      <h1 class="title">fullstack-tab-tracker</h1>
+      <h2 class="subtitle">My first-class Nuxt.js project</h2>
     </div>
   </div>
 </template>

@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 const path = require('path')
 const express = require('express')
 const consola = require('consola')
@@ -36,11 +35,17 @@ async function start() {
       useUnifiedTopology: true,
     })
     .then(() => {
-      console.log('connected to mongodb atlas')
+      consola.success({
+        message: 'connected to mongodb atlas',
+        badge: true,
+      })
     })
     .catch((error) => {
-      console.log('unable to connect to mongodb atlas')
-      console.error(error)
+      consola.error({
+        message: 'unable to connect to mongodb atlas',
+        additional: error,
+        badge: true,
+      })
     })
 
   app.use((req, res, next) => {
@@ -61,7 +66,7 @@ async function start() {
   app.use(bodyParser.urlencoded({ extended: true }))
   app.use(bodyParser.json())
 
-  app.use(morgan('dev')) // configire morgan
+  app.use(morgan('dev')) // configure morgan
 
   app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 
@@ -72,7 +77,9 @@ async function start() {
   app.use(nuxt.render)
 
   // Listen the server
-  app.listen(port, host)
+  const server = app.listen(port, host)
+
+  module.exports = server
   consola.ready({
     message: `Server listening on http://${host}:${port}`,
     badge: true,

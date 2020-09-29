@@ -2,8 +2,6 @@ const axios = require('axios')
 require('dotenv').config()
 
 module.exports = {
-  mode: 'universal',
-
   head: {
     title: 'Tab Tracker' || process.env.npm_package_name,
     meta: [
@@ -25,6 +23,9 @@ module.exports = {
   css: ['sweetalert2/dist/sweetalert2.min.css'],
 
   plugins: ['~/plugins/bootstrap-vue-icon'],
+
+  // Auto import components (https://go.nuxtjs.dev/config-components)
+  components: true,
 
   buildModules: [
     '@nuxtjs/eslint-module',

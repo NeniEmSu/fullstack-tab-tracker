@@ -6,9 +6,7 @@
     </b-alert>
     <h1>Add a New song</h1>
     <b-alert v-if="error" show variant="danger">
-      <h4 class="alert-heading">
-        Error
-      </h4>
+      <h4 class="alert-heading">Error</h4>
       <!-- eslint-disable-next-line vue/no-v-html -->
       <div v-html="error"></div>
     </b-alert>
@@ -212,5 +210,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped></style>
