@@ -58,7 +58,7 @@
     "eslint-plugin-prettier": "^3.1.4",
     "express-jwt": "^6.0.0",
     "jest": "^26.4.2",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.0",
     "nodemon": "^2.0.4",
     "prettier": "^2.1.2",
     "sass-loader": "^10.0.2",
