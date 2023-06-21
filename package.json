@@ -36,7 +36,7 @@
     "mongoose": "^5.10.7",
     "mongoose-unique-validator": "^2.0.3",
     "morgan": "^1.10.0",
-    "nuxt": "^2.14.6",
+    "nuxt": "^3.4.3",
     "vue-sweetalert2": "^3.0.8"
   },
   "devDependencies": {
