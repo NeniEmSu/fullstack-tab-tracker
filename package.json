@@ -62,7 +62,7 @@
     "nodemon": "^2.0.4",
     "prettier": "^2.1.2",
     "sass-loader": "^10.0.2",
-    "stylelint": "^13.7.2",
+    "stylelint": "^15.10.1",
     "stylelint-config-prettier": "^8.0.2",
     "stylelint-config-standard": "^20.0.0",
     "supertest": "^5.0.0",
